@@ -1,13 +1,13 @@
 package ru.panas.APizzanotificationService.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import ru.panas.APizzanotificationService.entity.Order;
 import ru.panas.APizzanotificationService.entity.User;
 
 import java.util.UUID;
@@ -44,12 +44,15 @@ public class EmailNotificationService {
 
     public String getEmailById(UUID id) {
 
-//        UUID id = order.getId();
+//        Mono<User> monoUser = this.webClient.get().uri("user/{id}", id) // как вариант можно использовать
+//                .retrieve()
+//                .bodyToMono(User.class);
 
-        Mono<User> monoUser = this.webClient.get().uri("user/{id}", id)
+        Mono<User> monoUser = webClient.get()
+                .uri("/notification/user/{id}", id)                         // uri надо уточнить
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(User.class);
-
 
         return monoUser.map(User::getEmail).toString();
     }
