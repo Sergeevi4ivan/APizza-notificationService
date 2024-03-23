@@ -17,14 +17,14 @@ public class KafkaConsumer {
     private NotificationService notificationService;
     private static Order order;
 
-    @KafkaListener(topics = "emailOfUser") // название топика надо уточнить у Оли. groupId если указали группу в yml файле
+    @KafkaListener(topics = "emailOfUser", groupId = "myGroupId") // название топика надо уточнить у Оли. groupId если указали группу в yml файле
     public void comsume(User user) {
         LOGGER.info(String.format("Сообщение с e-mail из кафка получено. "));
 
         notificationService.sendNotification(user.getEmail(), BODY_OF_MESSAGE + order.getStatus().toString());
     }
 
-    @KafkaListener(topics = "new-order-events")
+    @KafkaListener(topics = "new-order-events", groupId = "myGroupId")
     public void comsume(Order consumeOrder) {
         LOGGER.info(String.format("Сообщение с заказом из кафка получено. "));
 

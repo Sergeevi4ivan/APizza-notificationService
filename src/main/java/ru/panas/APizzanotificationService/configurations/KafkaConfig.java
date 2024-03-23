@@ -17,6 +17,7 @@ public class KafkaConfig {
     @Bean
     public NewTopic kafkaTopicForNotification() {
         return TopicBuilder.name("sendIdForGetEmail")
+
                 .build();
     }
 }
