@@ -13,7 +13,7 @@ import ru.panas.APizzanotificationService.entity.User;
 import java.util.UUID;
 
 @Service
-public class EmailNotificationService {
+public class EmailNotificationService implements NotificationService{
 
     private final WebClient webClient;
     private final String NOTIFICATION_FROM = "APizza";
@@ -27,13 +27,13 @@ public class EmailNotificationService {
         this.webClient = webClientBuilder.baseUrl(BASE_URL).build();
     }
 
-    public void sendNotification(String toEmail, String body) {
+    @Override
+    public void sendNotification(String address, String body) {
 
-//        (String toEmail, String subject, String body)  аргументы метода (возможно верну)
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(NOTIFICATION_FROM);
-        mailMessage.setTo(toEmail);
+        mailMessage.setTo(address);
         mailMessage.setSubject(NOTIFICATION_SUBJECT);
         mailMessage.setText(body);
 
@@ -42,18 +42,15 @@ public class EmailNotificationService {
         System.out.println("Email sent successfully!");
     }
 
-    public String getEmailById(UUID id) {
-
-//        Mono<User> monoUser = this.webClient.get().uri("user/{id}", id) // как вариант можно использовать
+    // Этот метод нужен, если захотим запрашивать email сразу у сервиса, а не через кафка
+//    public String getEmailById(UUID id) {
+//
+//        Mono<User> monoUser = webClient.get()
+//                .uri("/notification/user/{id}", id)                         // uri надо уточнить
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 //                .retrieve()
 //                .bodyToMono(User.class);
-
-        Mono<User> monoUser = webClient.get()
-                .uri("/notification/user/{id}", id)                         // uri надо уточнить
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .retrieve()
-                .bodyToMono(User.class);
-
-        return monoUser.map(User::getEmail).toString();
-    }
+//
+//        return monoUser.map(User::getEmail).toString();
+//    }
 }

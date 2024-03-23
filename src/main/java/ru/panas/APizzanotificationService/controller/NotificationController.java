@@ -20,22 +20,21 @@ public class NotificationController {
         this.emailNotificationService = emailNotificationService;
     }
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> sendEmail(@RequestBody Order order) {
-        order.getId(); // использовать для запроса к сервису пользователей
-        String emailForSend = emailNotificationService.getEmailById(order.getId());
-        emailNotificationService.sendNotification(emailForSend, "Some body for user"); // вызвать метод отправки почты (почту взять из ответа от запроса выше)
+//    @PostMapping
+//    public ResponseEntity<HttpStatus> sendEmail(@RequestBody Order order) {
+//        order.getId(); // использовать для запроса к сервису пользователей
+//        String emailForSend = emailNotificationService.getEmailById(order.getId());
+//        emailNotificationService.sendNotification(emailForSend, "Some body for user"); // вызвать метод отправки почты (почту взять из ответа от запроса выше)
+//
+//        return ResponseEntity.ok(HttpStatus.OK);
+//    }
 
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
 
-
-//    @GetMapping("/user/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping("/user/{id}")
-    public String getEmailById(@PathVariable UUID id) {
-        return emailNotificationService.getEmailById(id);
-    }
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    @RequestMapping("/user/{id}")
+//    public String getEmailById(@PathVariable UUID id) {
+//        return emailNotificationService.getEmailById(id);
+//    }
 
 
 

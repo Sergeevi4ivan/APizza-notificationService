@@ -19,6 +19,7 @@ public class Order {
     private UUID userId;
     private LocalDateTime date;
     private Double price;
+    private OrderStatus status;
 
     private Collection<Pizza> pizzas;
 

@@ -6,6 +6,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
+/**
+ * Конфигурациия для отправки запроса в сервис для получения e-mail
+ */
+
 @Configuration
 public class WebClientConfig {
 
