@@ -22,17 +22,17 @@ public class KafkaProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaProducer.class);
 
     @Autowired
-    private KafkaTemplate<String, UUID> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
-    public KafkaProducer(KafkaTemplate<String, UUID> kafkaTemplate) {
+    public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
     public void sendIdOfUser(UUID id) {
         LOGGER.info(String.format("Message with ID sent: %s", id));
 
-        Message<UUID> uuidMessage = MessageBuilder
-                .withPayload(id)
+        Message<String> uuidMessage = MessageBuilder
+                .withPayload(id.toString())
                 .setHeader(KafkaHeaders.TOPIC, "sendIdForGetEmail")
                 .build();
 

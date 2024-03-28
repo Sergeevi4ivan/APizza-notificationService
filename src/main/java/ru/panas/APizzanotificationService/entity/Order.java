@@ -34,6 +34,6 @@ public class Order {
     private OrderStatus status;
 
     @Schema(description = "Список заказов")
-    private Collection<Pizza> pizzas;
+    private Collection<UUID> pizzas;
 
 }
