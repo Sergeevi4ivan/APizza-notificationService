@@ -20,7 +20,7 @@ public class EmailNotificationService implements NotificationService{
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailNotificationService.class);
 
     private final WebClient webClient;
-    private final String NOTIFICATION_FROM = "APizza";
+    private final String NOTIFICATION_FROM = "notifier.bayun@inbox.ru";
     private final String NOTIFICATION_SUBJECT = "Notification";
     private final String BASE_URL = "http://localhost:8080/api";
 
