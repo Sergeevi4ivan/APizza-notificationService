@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.panas.APizzanotificationService.entity.Order;
+import ru.panas.APizzanotificationService.entity.User;
 import ru.panas.APizzanotificationService.service.EmailNotificationService;
 
 import java.util.UUID;
@@ -18,6 +19,20 @@ public class NotificationController {
     @Autowired
     public NotificationController(EmailNotificationService emailNotificationService) {
         this.emailNotificationService = emailNotificationService;
+    }
+
+    /**
+     * Метод для отправки электронного письма. Сделан, для проверки и чтобы был.
+     * @param email электронная почта, на которую будет отправлно письмо
+     * @return
+     */
+
+    @GetMapping( value = "/send/{email}")
+    public @ResponseBody ResponseEntity sendEmailForExample(@PathVariable("email") String email) {
+
+        emailNotificationService.sendNotification(email, "Test of notification");
+
+        return new  ResponseEntity<>("Check inbox", HttpStatus.OK);
     }
 
 //    @PostMapping

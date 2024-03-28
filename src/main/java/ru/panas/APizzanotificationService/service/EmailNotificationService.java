@@ -1,5 +1,7 @@
 package ru.panas.APizzanotificationService.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,6 +16,8 @@ import java.util.UUID;
 
 @Service
 public class EmailNotificationService implements NotificationService{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailNotificationService.class);
 
     private final WebClient webClient;
     private final String NOTIFICATION_FROM = "APizza";
@@ -30,7 +34,6 @@ public class EmailNotificationService implements NotificationService{
     @Override
     public void sendNotification(String address, String body) {
 
-
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(NOTIFICATION_FROM);
         mailMessage.setTo(address);
@@ -38,6 +41,8 @@ public class EmailNotificationService implements NotificationService{
         mailMessage.setText(body);
 
         mailSender.send(mailMessage);
+
+        LOGGER.info("Сообщение пользователю отправлено.");
 
         System.out.println("Email sent successfully!");
     }
